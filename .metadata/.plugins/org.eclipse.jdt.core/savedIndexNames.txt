@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+C:\Users\Dâmaris\Documents\workspace-spring-tool-suite-4-4.17.2.RELEASE\pagamentos-api\.metadata\.plugins\org.eclipse.jdt.core
+739101975.index
+1865797976.index
+3208601745.index

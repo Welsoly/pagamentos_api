@@ -25,5 +25,39 @@ public class LancamentoResource {
 	@Autowired
 	private LancamentoService lancamentoService;
 
+	@PostMapping
+	public ResponseEntity<Lancamento> criar(@RequestBody Lancamento lancamento) {
+		Lancamento lancamentoSalva = lancamentoService.criar(lancamento);
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{codigo}")
+				.buildAndExpand(lancamentoSalva.getCodigo()).toUri();
+
+		return ResponseEntity.created(uri).body(lancamentoSalva);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<Lancamento>> listar() {
+		List<Lancamento> lancamentos = lancamentoService.listar();
+		return ResponseEntity.ok().body(lancamentos);
+	}
+
+	@GetMapping(value = "/{codigo}")
+	public ResponseEntity<Lancamento> buscarPorCodigo(@PathVariable Long codigo) {
+		Lancamento lancamento = lancamentoService.buscarPorCodigo(codigo);
+		return ResponseEntity.ok().body(lancamento);
+	}
+
+	@DeleteMapping(value = "/{codigo}")
+	public ResponseEntity<Void> excluir(@PathVariable Long codigo) {
+		lancamentoService.excluir(codigo);
+		return ResponseEntity.noContent().build();
+	}
+
+	@PutMapping(value = "/{codigo}")
+	public ResponseEntity<Lancamento> atualizar(@PathVariable Long codigo, @RequestBody Lancamento lancamento) {
+		Lancamento lancamentoSalva = lancamentoService.atualizar(codigo, lancamento);
+		return ResponseEntity.ok().body(lancamentoSalva);
+
+	}
 	
 }
